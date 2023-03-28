@@ -22,9 +22,9 @@
             <span>{{ score }}</span>
           </div>
           <div
-              class="w-4 h-4 i-xx-icons-music cursor-pointer text-gray-300"
-              :class="{'text-green-500': enableSound}"
-              @click="enableSound = !enableSound"
+            class="w-4 h-4 i-xx-icons-music cursor-pointer text-gray-300"
+            :class="{'text-green-500': enableSound}"
+            @click="enableSound = !enableSound"
           />
         </div>
         <div class="">
@@ -38,17 +38,17 @@
             <div class="absolute -inset-2" :class="{running: runTimer}">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208 208">
                 <path
-                    class="squiggle"
-                    fill="none" :stroke="currentColor"
-                    stroke-miterlimit="10"
-                    stroke-width="5" d="M 0 0 L 208 0 L 208 208 L 0 208 Z "/>
+                  class="squiggle"
+                  fill="none" :stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="5" d="M 0 0 L 208 0 L 208 208 L 0 208 Z "/>
               </svg>
             </div>
             <div v-if="!isPlaying" class="absolute inset-0 flex items-center justify-center">
               <div
-                  v-if="countDown === -1"
-                  class="btn text-white font-bold border-2 border-white"
-                  @click="handlePlay"
+                v-if="countDown === -1"
+                class="btn text-white font-bold border-2 border-white"
+                @click="handlePlay"
               >Play
               </div>
               <span v-else class="font-bold text-xl">{{ countDown }}</span>
@@ -58,14 +58,14 @@
       </div>
       <Transition>
         <div
-            class="grid grid-cols-2 gap-4"
-            :class="{'grid-cols-2': maxItems === 4, 'grid-cols-3': maxItems === 9, 'grid-cols-4': maxItems === 16, 'grid-cols-5': maxItems === 25}"
+          class="grid grid-cols-2 gap-4"
+          :class="{'grid-cols-2': maxItems === 4, 'grid-cols-3': maxItems === 9, 'grid-cols-4': maxItems === 16, 'grid-cols-5': maxItems === 25}"
         >
           <div
-              v-for="c in maxItems" :key="c"
-              class="pt-full cursor-pointer"
-              :style="{backgroundColor: colors[c - 1]}"
-              @click="handleClick(colors[c - 1])"
+            v-for="c in maxItems" :key="c"
+            class="pt-full cursor-pointer"
+            :style="{backgroundColor: colors[c - 1]}"
+            @click="handleClick(colors[c - 1])"
           />
         </div>
       </Transition>
@@ -97,7 +97,9 @@
   <div class="max-w-sm mx-auto mb-6 space-y-4">
     <div class="space-y-2">
       <h2 class="uppercase text-xl font-bold">What is Color-Guessing game?</h2>
-      <p class="text-sm"><b>Color guessing game</b> is a type of puzzle game where players are shown many colors on the screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty, where the colors become increasingly complex or obscure.
+      <p class="text-sm"><b>Color guessing game</b> is a type of puzzle game where players are shown many colors on the
+        screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty,
+        where the colors become increasingly complex or obscure.
       </p>
     </div>
   </div>
@@ -154,12 +156,21 @@ const palette = [
   "#FAEDCD",
   "#FEFAE0",
   "#FFDD83",
+  "#7149C6",
+  "#FC2947",
+  "#FE6244",
+  "#FFDEB9",
+  "#2D2727",
+  "#413543",
+  "#8F43EE",
+  "#F0EB8D",
+  "#E14D2A",
+  "#FD841F",
+  "#3E6D9C",
+  "#001253",
 ]
 
-const colors = ref(["#7AA874",
-  "#EBB02D",
-  "#D864A9",
-  "#F7DB6A",])
+const colors = ref(shuffleArray(palette))
 const currentColor = ref("#7AA874")
 
 let checker: string | number | NodeJS.Timeout | undefined;
@@ -172,7 +183,7 @@ const scoreHighest = ref(0)
 const isPlaying = ref(false)
 const isUserEnter = ref(false)
 const runTimer = ref(false)
-const maxItems = ref(4)
+const maxItems = ref(Math.pow(2, 2))
 const enableSound = ref(true)
 
 const draw = () => {
@@ -214,7 +225,7 @@ const play = () => {
     maxItems.value = Math.pow(3, 2)
   } else if (score.value < 30) {
     maxItems.value = Math.pow(4, 2)
-  }else if (score.value < 40) {
+  } else if (score.value < 40) {
     maxItems.value = Math.pow(5, 2)
   }
   draw()
