@@ -60,7 +60,7 @@
       <Transition>
         <div
             class="grid grid-cols-2 gap-4"
-            :class="{'grid-cols-2': maxItems === 4, 'grid-cols-3': maxItems === 9, 'grid-cols-4': maxItems === 16}"
+            :class="{'grid-cols-2': maxItems === 4, 'grid-cols-3': maxItems === 9, 'grid-cols-4': maxItems === 16, 'grid-cols-5': maxItems === 25}"
         >
           <div
               v-for="c in maxItems" :key="c"
