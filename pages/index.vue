@@ -97,10 +97,9 @@
   </div>
   <div class="space-y-4 md:space-y-6 max-w-sm mx-auto mb-4 md:mb-6">
     <div class="space-y-2">
-      <h2 class="uppercase text-xl font-bold">What is Color-matching game?</h2>
-      <p class="text-sm">A <b>color-matching game</b> is a type of puzzle game that challenges players to match colors.
-        The game has a grid with colored tiles or shapes, and the objective is to match the colors in a certain way to
-        progress through the levels.</p>
+      <h2 class="uppercase text-xl font-bold">What is Color-Guessing game?</h2>
+      <p class="text-sm"><b>Color guessing game</b> is a type of puzzle game where players are shown many colors on the screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty, where the colors become increasingly complex or obscure.
+      </p>
     </div>
   </div>
 </template>
@@ -112,10 +111,10 @@ import {useSeoMeta} from "nuxt/app";
 import {useRuntimeConfig} from "#app";
 
 const config = useRuntimeConfig()
-const title = "Color-Matching Game | PlayColoring.com"
-const desc = 'A color-matching game is a type of puzzle game that challenges players to match colors. The game has a grid with colored tiles or shapes, and the objective is to match the colors in a certain way to progress through the levels.'
+const title = "Color-Guessing Game | ColorGuessing.com"
+const desc = 'Color guessing game is a type of puzzle game where players are shown many colors on the screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty, where the colors become increasingly complex or obscure.'
 useSeoMeta({
-  applicationName: 'Color-Matching Game',
+  applicationName: 'Color-Guessing Game',
   title: title,
   description: desc,
   ogDescription: desc,
