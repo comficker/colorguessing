@@ -40,7 +40,7 @@ export default defineNuxtConfig({
       viewport: 'width=device-width,initial-scale=1',
       link: [
         { rel: 'icon', href: '/favicon.png', sizes: 'any' },
-        // { rel: 'icon', type: 'image/svg+xml', href: '/favicon.png' },
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta: [
@@ -49,7 +49,6 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
       ],
       script: [
-        { src: '/fabric.min.js' },
         { src: 'https://feedback.fish/ff.js?pid=8ef1a83add0137', defer: true }
       ]
     },
