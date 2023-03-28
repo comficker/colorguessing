@@ -215,6 +215,8 @@ const play = () => {
     maxItems.value = Math.pow(3, 2)
   } else if (score.value < 30) {
     maxItems.value = Math.pow(4, 2)
+  }else if (score.value < 40) {
+    maxItems.value = Math.pow(5, 2)
   }
   draw()
   setTimeout(() => {
