@@ -1,10 +1,9 @@
 <template>
-  <div class="space-y-4 md:space-y-6 max-w-sm mx-auto mb-4 md:mb-6">
+  <div class="max-w-sm mx-auto mb-6 space-y-4">
     <div class="flex justify-between items-center">
       <h1>
         <nuxt-link class="flex items-center gap-1" to="/">
-          <div class="w-10 h-10 i-xx-icons-palette fill-red-400"/>
-          <img class="h-6 md:h-10 w-auto" src="/game/color-matching.png" alt="">
+          <img class="h-6 md:h-10 w-auto" src="/logo.png" alt="Color Guessing">
         </nuxt-link>
       </h1>
     </div>
@@ -14,7 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="md:max-w-sm mx-auto mb-4 md:mb-6 bg-white p-4 relative" :style="{'--timeout': `${timeout}s`}">
+  <div class="max-w-sm mx-auto mb-6 space-y-4 bg-white p-4 relative" :style="{'--timeout': `${timeout}s`}">
     <div class="space-y-4 " :class="{'blur-sm': showLeaderboard}">
       <div class="flex justify-between text-xs font-bold uppercase">
         <div class="flex items-center gap-3">
@@ -95,7 +94,7 @@
       </div>
     </div>
   </div>
-  <div class="space-y-4 md:space-y-6 max-w-sm mx-auto mb-4 md:mb-6">
+  <div class="max-w-sm mx-auto mb-6 space-y-4">
     <div class="space-y-2">
       <h2 class="uppercase text-xl font-bold">What is Color-Guessing game?</h2>
       <p class="text-sm"><b>Color guessing game</b> is a type of puzzle game where players are shown many colors on the screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty, where the colors become increasingly complex or obscure.
@@ -119,7 +118,7 @@ useSeoMeta({
   description: desc,
   ogDescription: desc,
   ogTitle: title,
-  ogImage: '/screenshot/color-matching.png',
+  ogImage: '/screenshot/color-guessing-game.png',
   twitterCard: 'summary_large_image',
 })
 const MAX_TIME_OUT = 3
