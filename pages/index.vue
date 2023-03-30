@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm mx-auto mb-6 space-y-4">
+  <div class="w-full max-w-sm mx-auto mb-6 space-y-4">
     <div class="flex justify-between items-center">
       <h1>
         <nuxt-link class="flex items-center gap-1" to="/">
@@ -7,13 +7,13 @@
         </nuxt-link>
       </h1>
     </div>
-    <div class="flex justify-between">
+    <div v-if="!isTelegram" class="flex justify-between">
       <div>
         <div>The objective is to simply match identical colors or patterns</div>
       </div>
     </div>
   </div>
-  <div class="max-w-sm mx-auto mb-6 space-y-4 bg-white p-4 relative" :style="{'--timeout': `${timeout}s`}">
+  <div class="w-full max-w-sm mx-auto mb-6 space-y-4 bg-white p-4 relative" :style="{'--timeout': `${timeout}s`}">
     <div class="space-y-4 " :class="{'blur-sm': showLeaderboard}">
       <div class="flex justify-between text-xs font-bold uppercase">
         <div class="flex items-center gap-3">
@@ -94,7 +94,32 @@
       </div>
     </div>
   </div>
-  <div class="max-w-sm mx-auto mb-6 space-y-4">
+  <div v-if="!isTelegram" class="w-full max-w-sm mx-auto mb-6 space-y-4">
+    <div class="space-y-2">
+      <h2 class="uppercase text-sm font-bold">All other versions:</h2>
+      <div class="grid grid-cols-2 gap-2 text-xs uppercase font-bold text-white">
+        <div class="flex items-center p-2 gap-2 bg-emerald-300 rounded">
+          <div class="i-xx-icons-telegram w-5 h-5"/>
+          <span class="mr-auto">Telegram</span>
+          <div class="i-xx-icons-open w-3 h-3"/>
+        </div>
+        <div class="flex items-center p-2 gap-2 bg-emerald-300 rounded">
+          <div class="i-xx-icons-play w-5 h-5"/>
+          <span class="mr-auto">Android</span>
+          <div class="i-xx-icons-open w-3 h-3"/>
+        </div>
+        <div class="flex items-center p-2 gap-2 bg-emerald-300 rounded">
+          <div class="i-xx-icons-apple w-5 h-5"/>
+          <span class="mr-auto">IOS</span>
+          <div class="i-xx-icons-open w-3 h-3"/>
+        </div>
+        <div class="flex items-center p-2 gap-2 bg-emerald-300 rounded">
+          <div class="i-xx-icons-chrome w-5 h-5"/>
+          <span class="mr-auto">Chrome</span>
+          <div class="i-xx-icons-open w-3 h-3"/>
+        </div>
+      </div>
+    </div>
     <div class="space-y-2">
       <h2 class="uppercase text-xl font-bold">What is Color-Guessing game?</h2>
       <p class="text-sm"><b>Color guessing game</b> is a type of puzzle game where players are shown many colors on the
@@ -108,9 +133,10 @@
 <script lang="ts" setup>
 import {ref} from "@vue/reactivity";
 import {onMounted, watch} from "@vue/runtime-core";
-import {useSeoMeta} from "nuxt/app";
+import {useSeoMeta, useRoute} from "nuxt/app";
 import {useRuntimeConfig} from "#app";
 
+const route = useRoute()
 const config = useRuntimeConfig()
 const title = "Color-Guessing Game | ColorGuessing.com"
 const desc = 'Color guessing game is a type of puzzle game where players are shown many colors on the screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty, where the colors become increasingly complex or obscure.'
@@ -170,6 +196,7 @@ const palette = [
   "#001253",
 ]
 
+const isTelegram = ref(route.hash.includes("#tgWebAppData"))
 const colors = ref(shuffleArray(palette))
 const currentColor = ref("#7AA874")
 
