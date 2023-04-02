@@ -77,22 +77,22 @@
         <div class="text-sm underline">How to play?</div>
       </div>
     </div>
-    <div v-if="showLeaderboard" class="z-10 absolute inset-0 flex flex-col justify-end">
-      <div class="absolute inset-0 -z-10 cursor-pointer" @click="showLeaderboard = false"></div>
-      <div class="bg-white p-4 -shadow rounded-tl-xl rounded-tr-xl">
-        <div class="text-sm divide-y divide-dashed">
-          <h3 class="font-bold uppercase text-xs pb-2">Leaderboard</h3>
-          <div class="flex justify-between py-1">
-            <span>Kris</span>
-            <span class="font-bold">123</span>
-          </div>
-          <div class="flex justify-between py-1">
-            <span>Kris</span>
-            <span class="font-bold">123</span>
+    <Transition enter-active-class="animated animated-faster animated-fade-in-up" leave-active-class="animated animated-faster animated-fade-out-down">
+      <div v-if="showLeaderboard" class="z-10 absolute inset-0 flex flex-col justify-end">
+        <div class="absolute inset-0 -z-10 cursor-pointer" @click="showLeaderboard = false"></div>
+        <div class="bg-white p-4 -shadow rounded-tl-xl rounded-tr-xl">
+          <div class="text-sm divide-y divide-dashed">
+            <h3 class="font-bold uppercase text-xs pb-2">Leaderboard</h3>
+            <div
+              v-for="item in leaderboard" :key="item.id"
+              class="flex justify-between py-1">
+              <span>{{ item.user ? item.user.username : 'Anonymous' }}</span>
+              <span class="font-bold">{{ item.score }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </div>
   <div v-if="!isTelegram" class="w-full max-w-sm mx-auto mb-6 space-y-4">
     <div class="space-y-2">
@@ -134,10 +134,10 @@
 import {ref} from "@vue/reactivity";
 import {onMounted, watch} from "@vue/runtime-core";
 import {useSeoMeta, useRoute} from "nuxt/app";
-import {useRuntimeConfig} from "#app";
+import {useAuthFetch} from "~/composables/useAuthFetch";
+import {ResponseScores, Score} from "~/interface";
 
 const route = useRoute()
-const config = useRuntimeConfig()
 const title = "Color-Guessing Game | ColorGuessing.com"
 const desc = 'Color guessing game is a type of puzzle game where players are shown many colors on the screen and must guess the correct specific color. The game is often designed with multiple levels of difficulty, where the colors become increasingly complex or obscure.'
 useSeoMeta({
@@ -196,7 +196,9 @@ const palette = [
   "#001253",
 ]
 
-const isTelegram = ref(route.hash.includes("#tgWebAppData"))
+const {data: highestScore} = await useAuthFetch<Score>(`/guessing/score`)
+
+const isTelegram = ref(route.query.source === "telegram")
 const colors = ref(shuffleArray(palette))
 const currentColor = ref("#7AA874")
 
@@ -206,12 +208,13 @@ const showLeaderboard = ref(false)
 const timeout = ref(MAX_TIME_OUT)
 const countDown = ref(-1)
 const score = ref(0)
-const scoreHighest = ref(0)
+const scoreHighest = ref(highestScore?.value?.score || 0)
 const isPlaying = ref(false)
 const isUserEnter = ref(false)
 const runTimer = ref(false)
 const maxItems = ref(Math.pow(2, 2))
 const enableSound = ref(true)
+const leaderboard = ref([] as Score[])
 
 const draw = () => {
   colors.value = []
@@ -275,16 +278,39 @@ const check = () => {
   }, timeout.value * 1000)
 }
 
+const pushScore = (score: number) => {
+  useAuthFetch('/guessing/score', {
+    method: 'POST',
+    body: {
+      score
+    }
+  })
+}
+
 watch(isPlaying, (newValue) => {
   if (!newValue) {
     timeout.value = 3
-    if (score.value > scoreHighest.value) scoreHighest.value = score.value;
+    if (score.value > scoreHighest.value) {
+      scoreHighest.value = score.value
+      pushScore(scoreHighest.value)
+    }
     score.value = 0
     maxItems.value = Math.pow(2, 2)
     if (enableSound.value) SOUND_OVER?.play()
   }
 })
 
+watch(showLeaderboard, async (newValue) => {
+  if (newValue) {
+    const {data: scoreRes} = await useAuthFetch<ResponseScores>(
+      `/guessing/scores/?ordering=-score`,
+      {params: {page_size: 6}}
+    )
+    if (scoreRes.value) {
+      leaderboard.value = scoreRes.value.results
+    }
+  }
+})
 onMounted(() => {
   SOUND_TAP = new window.Audio("/sound/tap.wav")
   SOUND_OVER = new window.Audio("/sound/over.wav")

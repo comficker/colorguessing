@@ -15,7 +15,7 @@ import {useRoute} from "nuxt/app";
 import {ref} from "@vue/reactivity";
 
 const route = useRoute()
-const isTelegram = ref(route.hash.includes("#tgWebAppData"))
+const isTelegram = ref(route.query.source === "telegram")
 </script>
 <style>
 html {

@@ -9,6 +9,7 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
+import { animatedUno } from 'animated-unocss'
 
 export default defineConfig({
   shortcuts: [
@@ -33,6 +34,7 @@ export default defineConfig({
         sans: 'Open Sans:300,400,600,700',
       },
     }),
+    animatedUno(),
   ],
   transformers: [
     transformerDirectives(),

@@ -25,6 +25,7 @@
     "@unocss/nuxt": "^0.49.7",
     "@vite-pwa/nuxt": "^0.0.6",
     "@vueuse/nuxt": "^9.13.0",
+    "animated-unocss": "^0.0.4",
     "eslint": "^8.34.0",
     "nuxt": "^3.2.2",
     "pinia": "^2.0.30",

@@ -2348,6 +2348,11 @@ ajv@^8.6.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
+animated-unocss@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/animated-unocss/-/animated-unocss-0.0.4.tgz#30e13318ff454cef27ed1afccaa471325d28ca79"
+  integrity sha512-V3lntsUQ/JYiYt+eSzxKOcEcDK8ZpkXewQj2tfjNQ9Lzrc8pbMqwUifgwAY0jsLEL+THajQruKnMA/3bkHDu0w==
+
 ansi-escapes@^4.3.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-4.3.2.tgz#6b2291d1db7d98b6521d5f1efa42d0f3a9feb65e"
