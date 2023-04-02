@@ -197,7 +197,6 @@ const palette = [
 ]
 
 const {data: highestScore} = await useAuthFetch<Score>(`/guessing/score`)
-
 const isTelegram = ref(route.query.source === "telegram")
 const colors = ref(shuffleArray(palette))
 const currentColor = ref("#7AA874")
