@@ -77,7 +77,8 @@
         <div class="text-sm underline">How to play?</div>
       </div>
     </div>
-    <Transition enter-active-class="animated animated-faster animated-fade-in-up" leave-active-class="animated animated-faster animated-fade-out-down">
+    <Transition enter-active-class="animated animated-faster animated-fade-in-up"
+                leave-active-class="animated animated-faster animated-fade-out-down">
       <div v-if="showLeaderboard" class="z-10 absolute inset-0 flex flex-col justify-end">
         <div class="absolute inset-0 -z-10 cursor-pointer" @click="showLeaderboard = false"></div>
         <div class="bg-white p-4 -shadow rounded-tl-xl rounded-tr-xl">
@@ -289,8 +290,8 @@ const pushScore = (score: number) => {
     },
     body: {
       score,
-      message_id: route.query.message_id,
-
+      message_id: route.query.message_id ? route.query.message_id : undefined,
+      inline_id: route.query.inline_id ? route.query.inline_id : undefined
     }
   })
 }
