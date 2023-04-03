@@ -281,7 +281,9 @@ const pushScore = (score: number) => {
   useAuthFetch('/guessing/score', {
     method: 'POST',
     body: {
-      score
+      score,
+      message_id: route.query.message_id,
+      chat_id: route.query.chat_id
     }
   })
 }
