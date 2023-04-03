@@ -196,7 +196,11 @@ const palette = [
   "#001253",
 ]
 
-const {data: highestScore} = await useAuthFetch<Score>(`/guessing/score`)
+const {data: highestScore} = await useAuthFetch<Score>(`/guessing/score`, {
+  params: {
+    chat_id: route.query.chat_id
+  }
+})
 const isTelegram = ref(route.query.source === "telegram")
 const colors = ref(shuffleArray(palette))
 const currentColor = ref("#7AA874")
@@ -280,10 +284,13 @@ const check = () => {
 const pushScore = (score: number) => {
   useAuthFetch('/guessing/score', {
     method: 'POST',
+    params: {
+      chat_id: route.query.chat_id
+    },
     body: {
       score,
       message_id: route.query.message_id,
-      chat_id: route.query.chat_id
+
     }
   })
 }
@@ -292,9 +299,10 @@ watch(isPlaying, (newValue) => {
   if (!newValue) {
     timeout.value = 3
     if (score.value > scoreHighest.value) {
-      scoreHighest.value = score.value
-      pushScore(scoreHighest.value)
+
     }
+    scoreHighest.value = score.value
+    pushScore(scoreHighest.value)
     score.value = 0
     maxItems.value = Math.pow(2, 2)
     if (enableSound.value) SOUND_OVER?.play()
